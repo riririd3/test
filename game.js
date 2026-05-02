@@ -27,7 +27,6 @@ new Phaser.Game(config);
 
 function create() {
   this.cameras.main.startFollow(player);
-  this.cameras.main.setBounds(0, 0, 2000, 600);
   // allow multi-touch
   this.input.addPointer(3);
 
