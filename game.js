@@ -1,6 +1,10 @@
+let player;
+let cursors;
+
 let moveLeft = false;
 let moveRight = false;
 let jump = false;
+let canJump = true;
 
 const config = {
   type: Phaser.AUTO,
@@ -19,11 +23,15 @@ const config = {
   }
 };
 
-const game = new Phaser.Game(config);
+new Phaser.Game(config);
 
-let player;
-let cursors;
 function create() {
+  // allow multi-touch
+  this.input.addPointer(3);
+
+  // world bounds (for future camera use)
+  this.physics.world.setBounds(0, 0, 2000, 600);
+
   // ground
   const ground = this.add.rectangle(400, 580, 800, 40, 0x00ff00);
   this.physics.add.existing(ground, true);
@@ -31,7 +39,10 @@ function create() {
   // player
   player = this.add.rectangle(100, 450, 40, 40, 0xff0000);
   this.physics.add.existing(player);
+
   player.body.setCollideWorldBounds(true);
+  player.body.setDragX(600);
+  player.body.setMaxVelocity(200, 500);
 
   // collision
   this.physics.add.collider(player, ground);
@@ -39,20 +50,34 @@ function create() {
   // keyboard
   cursors = this.input.keyboard.createCursorKeys();
 
+  // =====================
+  // MOBILE BUTTONS
+  // =====================
+
   // LEFT button
-  const leftBtn = this.add.text(50, 500, "⬅️")
-    .setFontSize(40)
-    .setInteractive();
+  const leftBtn = this.add.rectangle(70, 520, 90, 90, 0x000000, 0.4)
+    .setInteractive()
+    .setScrollFactor(0);
+
+  this.add.text(50, 500, "⬅️").setFontSize(30).setScrollFactor(0);
 
   // RIGHT button
-  const rightBtn = this.add.text(120, 500, "➡️")
-    .setFontSize(40)
-    .setInteractive();
+  const rightBtn = this.add.rectangle(170, 520, 90, 90, 0x000000, 0.4)
+    .setInteractive()
+    .setScrollFactor(0);
+
+  this.add.text(150, 500, "➡️").setFontSize(30).setScrollFactor(0);
 
   // JUMP button
-  const jumpBtn = this.add.text(700, 500, "⬆️")
-    .setFontSize(40)
-    .setInteractive();
+  const jumpBtn = this.add.rectangle(730, 520, 90, 90, 0x000000, 0.4)
+    .setInteractive()
+    .setScrollFactor(0);
+
+  this.add.text(710, 500, "⬆️").setFontSize(30).setScrollFactor(0);
+
+  // =====================
+  // BUTTON EVENTS
+  // =====================
 
   // LEFT
   leftBtn.on("pointerdown", () => moveLeft = true);
@@ -67,22 +92,28 @@ function create() {
   // JUMP
   jumpBtn.on("pointerdown", () => jump = true);
   jumpBtn.on("pointerup", () => jump = false);
+
+  // DEBUG (optional)
+  this.input.on("pointerdown", () => {
+    console.log("touch detected");
+  });
 }
-let canJump = true;
 
 function update() {
   const left = cursors.left.isDown || moveLeft;
   const right = cursors.right.isDown || moveRight;
 
+  // movement
   if (left) {
-    player.body.setVelocityX(-200);
+    player.body.setAccelerationX(-600);
   } else if (right) {
-    player.body.setVelocityX(200);
+    player.body.setAccelerationX(600);
   } else {
-    player.body.setVelocityX(0);
+    player.body.setAccelerationX(0);
   }
 
-  if ((cursors.up.isDown || jump) && player.body.touching.down && canJump) {
+  // jump
+  if ((cursors.up.isDown || jump) && player.body.blocked.down && canJump) {
     player.body.setVelocityY(-350);
     canJump = false;
   }
