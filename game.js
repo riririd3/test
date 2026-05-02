@@ -26,6 +26,8 @@ const config = {
 new Phaser.Game(config);
 
 function create() {
+  this.cameras.main.startFollow(player);
+  this.cameras.main.setBounds(0, 0, 2000, 600);
   // allow multi-touch
   this.input.addPointer(3);
 
@@ -33,7 +35,7 @@ function create() {
   this.physics.world.setBounds(0, 0, 2000, 600);
 
   // ground
-  const ground = this.add.rectangle(400, 580, 800, 40, 0x00ff00);
+  const ground = this.add.rectangle(1000, 580, 2000, 40, 0x00ff00);
   this.physics.add.existing(ground, true);
 
   // player
