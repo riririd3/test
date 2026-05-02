@@ -31,8 +31,6 @@ function create() {
 
   // world bounds (for future camera use)
   this.physics.world.setBounds(0, 0, 2000, 600);
-  this.cameras.main.startFollow(player);
-  this.cameras.main.setBounds(0, 0, 2000, 600);
 
   // ground
   const ground = this.add.rectangle(1000, 580, 2000, 40, 0x00ff00);
@@ -48,6 +46,8 @@ function create() {
 
   // collision
   this.physics.add.collider(player, ground);
+  this.cameras.main.startFollow(player);
+  this.cameras.main.setBounds(0, 0, 2000, 600);
 
   // keyboard
   cursors = this.input.keyboard.createCursorKeys();
