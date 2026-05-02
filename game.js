@@ -26,50 +26,51 @@ let cursors;
 function create() {
   // ground
   const ground = this.add.rectangle(400, 580, 800, 40, 0x00ff00);
-  this.physics.add.existing(ground, true); // static
+  this.physics.add.existing(ground, true);
 
   // player
   player = this.add.rectangle(100, 450, 40, 40, 0xff0000);
   this.physics.add.existing(player);
-
   player.body.setCollideWorldBounds(true);
 
   // collision
   this.physics.add.collider(player, ground);
 
-  // keyboard input
+  // keyboard
   cursors = this.input.keyboard.createCursorKeys();
 
   // LEFT button
-const leftBtn = this.add.text(50, 500, "⬅️")
-  .setFontSize(40)
-  .setInteractive();
+  const leftBtn = this.add.text(50, 500, "⬅️")
+    .setFontSize(40)
+    .setInteractive();
 
-// RIGHT button
-const rightBtn = this.add.text(120, 500, "➡️")
-  .setFontSize(40)
-  .setInteractive();
+  // RIGHT button
+  const rightBtn = this.add.text(120, 500, "➡️")
+    .setFontSize(40)
+    .setInteractive();
 
-// JUMP button
-const jumpBtn = this.add.text(700, 500, "⬆️")
-  .setFontSize(40)
-  .setInteractive();
+  // JUMP button
+  const jumpBtn = this.add.text(700, 500, "⬆️")
+    .setFontSize(40)
+    .setInteractive();
+
+  // LEFT
+  leftBtn.on("pointerdown", () => moveLeft = true);
+  leftBtn.on("pointerup", () => moveLeft = false);
+  leftBtn.on("pointerout", () => moveLeft = false);
+
+  // RIGHT
+  rightBtn.on("pointerdown", () => moveRight = true);
+  rightBtn.on("pointerup", () => moveRight = false);
+  rightBtn.on("pointerout", () => moveRight = false);
+
+  // JUMP
+  jumpBtn.on("pointerdown", () => jump = true);
+  jumpBtn.on("pointerup", () => jump = false);
 }
-// LEFT
-leftBtn.on("pointerdown", () => moveLeft = true);
-leftBtn.on("pointerup", () => moveLeft = false);
-leftBtn.on("pointerout", () => moveLeft = false);
+let canJump = true;
 
-// RIGHT
-rightBtn.on("pointerdown", () => moveRight = true);
-rightBtn.on("pointerup", () => moveRight = false);
-rightBtn.on("pointerout", () => moveRight = false);
-
-// JUMP
-jumpBtn.on("pointerdown", () => jump = true);
-jumpBtn.on("pointerup", () => jump = false);
 function update() {
-  // combine keyboard + touch
   const left = cursors.left.isDown || moveLeft;
   const right = cursors.right.isDown || moveRight;
 
@@ -81,8 +82,12 @@ function update() {
     player.body.setVelocityX(0);
   }
 
-  // jump
-  if ((cursors.up.isDown || jump) && player.body.touching.down) {
+  if ((cursors.up.isDown || jump) && player.body.touching.down && canJump) {
     player.body.setVelocityY(-350);
+    canJump = false;
+  }
+
+  if (!cursors.up.isDown && !jump) {
+    canJump = true;
   }
 }
