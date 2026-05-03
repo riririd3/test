@@ -4,7 +4,7 @@ class ExploreScene extends Phaser.Scene {
 }
   create() {
   this.player = this.add.rectangle(100, 100, 30, 30, 0x00ff00 );
-  const leftBtn = this.add.rectangle(70, 520, 90,90, 0x000000, 0.4 )
+  const leftBtn = this.add.rectangle(70, this.scale.height - 80, 90,90, 0x000000, 0.4 )
   .setInteractive()
   .setScrollFactor(0);
   this.add.text(60, 500, "<").setFontSize(50);
@@ -16,9 +16,13 @@ class ExploreScene extends Phaser.Scene {
 
 const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
+  width: 1280,
+  height: 720,
   backgroundColor: "#222222",
+  scale: {
+  mode: Phaser.Scale.FIT,
+  autoCenter: Phaser.Scale.CENTER_BOTH
+  },
   scene: [ExploreScene]
   };
 
