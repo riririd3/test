@@ -23,11 +23,11 @@ class ExploreScene extends Phaser.Scene {
   )
   .setInteractive()
   .setScrollFactor(0);
+    this.add.text(60, 500, "←");
 
   leftBtn.on("pointerdown", () => {
     this.player.x -= 32;
   });
-    this.add.text(60, 500, "←");
 
     this.cursors = this.input.keyboard.createCursorKeys();
   }
