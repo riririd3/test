@@ -1,20 +1,3 @@
-const config = {
-  type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  physics: {
-    default: "arcade",
-    arcade: {
-      gravity: { y: 500 },
-      debug: true
-    }
-  },
-  scene: {
-    create: create,
-    update: update
-  }
-};
-
 class ExploreScene extends Phaser.Scene {
   constructor() {
     super("ExploreScene");
@@ -49,3 +32,16 @@ class ExploreScene extends Phaser.Scene {
 
   }
 }
+
+const config = {
+  type: Phaser.AUTO,
+
+  width: 800,
+  height: 600,
+
+  backgroundColor: "#222222",
+
+  scene: [ExploreScene]
+};
+
+const game = new Phaser.Game(config);
