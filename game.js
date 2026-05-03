@@ -4,12 +4,16 @@ class ExploreScene extends Phaser.Scene {
   }
 
   create() {
+
     this.player = this.add.rectangle(100, 100, 32, 32, 0x00ff00);
+
+    this.enemy = this.add.rectangle(300, 100, 32, 32, 0xff0000);
 
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   update() {
+
     if (this.cursors.left.isDown) {
       this.player.x -= 2;
     }
@@ -25,5 +29,6 @@ class ExploreScene extends Phaser.Scene {
     if (this.cursors.down.isDown) {
       this.player.y += 2;
     }
+
   }
 }
