@@ -3,11 +3,11 @@ class ExploreScene extends Phaser.Scene {
   super("ExploreScene");
 }
   create() {
-  this.player = this.add.rectangle(100, 100, 30, 30, 0x00ff00 );
-  const leftBtn = this.add.rectangle(70, this.scale.height - 80, 90,90, 0x000000, 0.4 )
+  this.player = this.add.rectangle(100,100,30,30,0x00ff00);
+  const leftBtn = this.add.rectangle(this.scale.width-20,this.scale.height-80,90,90,0x000000,0.2)
   .setInteractive()
   .setScrollFactor(0);
-  this.add.text(60, 500, "<").setFontSize(50);
+  this.add.text(this.scale.width-20,this.scale.height-80,"<").setFontSize(50);
   leftBtn.on("pointerdown", () => {
   this.player.x -= 30;
   });
