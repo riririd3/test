@@ -11,7 +11,7 @@ class ExploreScene extends Phaser.Scene {
   leftBtn.on("pointerdown", () => {
   this.player.x -= 30;
   });
-  const rightBtn = this.add.rectangle(240,this.scale.height-120,90,90,0x000000,0.2)
+  const rightBtn = this.add.rectangle(400,this.scale.height-120,90,90,0x000000,0.2)
   .setInteractive().setScrollFactor(0);
   const rightText = this.add.text(rightBtn.x-12,rightBtn.y-25,">")
   .setFontSize(50).setScrollFactor(0);
