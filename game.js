@@ -1,13 +1,18 @@
 class ExploreScene extends Phaser.Scene {
+
   constructor() {
     super("ExploreScene");
   }
 
   create() {
 
-    this.player = this.add.rectangle(100, 100, 32, 32, 0x00ff00);
-
-    this.enemy = this.add.rectangle(300, 100, 32, 32, 0xff0000);
+    this.player = this.add.rectangle(
+      100,
+      100,
+      32,
+      32,
+      0x00ff00
+    );
 
     this.cursors = this.input.keyboard.createCursorKeys();
   }
