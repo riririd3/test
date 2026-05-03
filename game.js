@@ -11,7 +11,7 @@ create() {
   this.add.text(60, 500, "<").setFontSize(50);
   leftBtn.on("pointerdown", () => {
   this.player.x -= 30;
-  });
+  });}}
   
   const config = {
   type: Phaser.AUTO,
