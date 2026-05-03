@@ -4,7 +4,7 @@ class ExploreScene extends Phaser.Scene {
 }
   create() {
   this.player = this.add.rectangle(100,100,30,30,0x00ff00);
-  const leftBtn = this.add.rectangle(20,this.scale.height-120,90,90,0x000000,0.2)
+  const leftBtn = this.add.rectangle(70,this.scale.height-120,90,90,0x000000,0.2)
   .setInteractive().setScrollFactor(0);
   const leftText = this.add.text(leftBtn.x-12,leftBtn.y-25,"<")
   .setFontSize(50).setScrollFactor(0);
